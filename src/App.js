@@ -2,7 +2,7 @@
 import './App.css';
 
 import React from 'react';
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function App() {
   const [todos, setTodos] = React.useState([
@@ -12,10 +12,23 @@ export default function App() {
   ]);
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <TodoList setTodos={setTodos} todos={todos} />
-      <AddTodo setTodos={setTodos} />
+    <div className='container'>
+      <div className='row'>
+        <div className='col-md-8 offset-md-2 pt-5'>
+            <h1 className='pb-3 text-center'>Todo List</h1>
+ 
+        
+            <AddTodo setTodos={setTodos} />
+            <TodoList setTodos={setTodos} todos={todos} />
+             
+           
+             
+              
+
+            
+            
+        </div>
+      </div>
     </div>
   );
 }
@@ -45,7 +58,9 @@ function TodoList({todos, setTodos}) {
         <li 
         onDoubleClick={() => handleToggleTodo(todo)} 
         style={{textDecoration: todo.done ? "line-through" : ""}} 
-        key={todo.id}>
+        key={todo.id}
+        className='p-2'  
+        >
 
           {todo.text}
           <DeleteTodo setTodos={setTodos} todo={todo}/>
@@ -79,11 +94,10 @@ function AddTodo({ setTodos }){
   }
 
 
-
   return(
-    <form onSubmit={handleAddTodo}>
-      <input name='addTodo' placeholder='Add todo' ref={inputRef}/>
-      <button type='submit'>Submit</button>
+    <form onSubmit={handleAddTodo} className='text-center mb-5'>
+      <input className='form-control' name='addTodo' placeholder='Add todo' ref={inputRef}/>
+      <button className='btn btn-success btn-md mt-3' type='submit'>Add TO DO list</button>
     </form>
   );
 }
@@ -93,7 +107,7 @@ function DeleteTodo({todo, setTodos}){
 
   function handleDeleteTodo(){
 
-    const confirmed = window.confirm("do you want to delte this");
+    const confirmed = window.confirm("do you want to delete this");
     if(confirmed){
       setTodos((prevTodos) => {
         return prevTodos.filter((t) => t.id !== todo.id);
@@ -116,7 +130,9 @@ function DeleteTodo({todo, setTodos}){
     }}
     
     >
-      X
+     <ClearIcon />
+    
+
     </span>
   )
 
